@@ -1,1 +1,27 @@
+-- Verifica si la base de datos existe antes de usarla
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'ASPCoreTestDB')
+BEGIN
+    CREATE DATABASE ASPCoreTestDB;
+END;
+GO
 
+USE ASPCoreTestDB;
+GO
+
+-- Elimina la tabla si ya existe
+DROP TABLE IF EXISTS [dbo].[Employee];
+GO
+
+-- Crea la tabla Employee
+CREATE TABLE [dbo].[Employee]( 
+    [EmployeeID] INT IDENTITY(1,1) NOT NULL, 
+    [EmployeeGovtID] VARCHAR(50) NULL, 
+    [EmployeeName] VARCHAR(200) NOT NULL, 
+    [Age] INT NOT NULL, 
+    [Address] NVARCHAR(MAX) NULL, 
+    [Salary] DECIMAL(18,2) NULL, 
+    [Designation] VARCHAR(50) NULL, 
+    [HasDependents] BIT NULL, 
+    CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC)
+) ON [PRIMARY];
+GO
